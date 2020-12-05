@@ -1,4 +1,4 @@
-NS = blang
+NS = noasakurajin
 REPO = latex
 IMAGE = $(NS)/$(REPO)
 

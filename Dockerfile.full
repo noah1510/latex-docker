@@ -1,4 +1,4 @@
-FROM blang/latex:ctanbasic
-MAINTAINER Benedikt Lang <mail@blang.io>
+FROM noasakurajin/latex:ctanbasic
+MAINTAINER Noa Sakurajin <noasakurajin@protonmail.com>
 
 RUN tlmgr install scheme-full

@@ -4,18 +4,25 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update -q \
     && apt-get install -qy build-essential wget libfontconfig1 \
+    && apt-get upgrade -qy
     && rm -rf /var/lib/apt/lists/*
+
+#set the installation dir
+ENV TEXLIVE_INSTALL_TEXDIR=docker
 
 # Install TexLive with scheme-basic
 RUN wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz; \
 	mkdir /install-tl-unx; \
 	tar -xvf install-tl-unx.tar.gz -C /install-tl-unx --strip-components=1; \
     echo "selected_scheme scheme-basic" >> /install-tl-unx/texlive.profile; \
-    	export TEXLIVE_INSTALL_TEXDIR=docker; \
 	/install-tl-unx/install-tl -profile /install-tl-unx/texlive.profile; \
     rm -r /install-tl-unx; \
 	rm install-tl-unx.tar.gz
 
+#moving the texlive installation to the docker dir
+RUN mv /usr/local/texlive/20*/ /usr/local/texlive/docker/
+
+#add texlive to the path
 ENV PATH="/usr/local/texlive/docker/bin/x86_64-linux:${PATH}"
 
 ENV HOME /data
